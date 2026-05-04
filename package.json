@@ -1,0 +1,47 @@
+{
+  "name": "event-horizon",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Event Horizon — interactive 3D black hole observatory & simulator.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.10",
+    "pnpm": ">=9"
+  },
+  "packageManager": "pnpm@10.33.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --port 4173",
+    "typecheck": "tsc -b --pretty",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "test:e2e:install": "playwright install --with-deps chromium",
+    "size": "node scripts/size-budget.mjs",
+    "prepare": "husky || true"
+  },
+  "dependencies": {
+    "three": "^0.169.0",
+    "tweakpane": "^4.0.5"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@playwright/test": "^1.48.2",
+    "@types/node": "^22.9.0",
+    "@types/three": "^0.169.0",
+    "happy-dom": "^15.11.6",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.10",
+    "vitest": "^2.1.4"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,json,md,html,css}": ["biome check --write --no-errors-on-unmatched"]
+  }
+}
