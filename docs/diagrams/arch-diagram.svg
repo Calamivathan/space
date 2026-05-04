@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" font-family="Inter, system-ui, sans-serif">
+  <!--
+    Event Horizon module map (README §7.1).
+    Hand-authored, T1 deliverable.
+  -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#05060a"/>
+      <stop offset="100%" stop-color="#0b0e16"/>
+    </linearGradient>
+    <style>
+      .title { fill: #e8ecf5; font-size: 22px; font-weight: 700; letter-spacing: 0.04em; }
+      .sub   { fill: #9ba3b7; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; }
+      .group { fill: #0b0e16; stroke: #2a3146; stroke-width: 1.2; rx: 10; }
+      .group-label { fill: #5be9f5; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; }
+      .leaf  { fill: #141826; stroke: #2a3146; stroke-width: 1; rx: 6; }
+      .leaf-label { fill: #e8ecf5; font-size: 12px; }
+      .leaf-sub   { fill: #9ba3b7; font-size: 10px; }
+      .arrow { stroke: #5be9f5; stroke-width: 1.2; fill: none; marker-end: url(#tip); opacity: 0.7; }
+      .arrow-soft { stroke: #f5b85b; stroke-width: 1; fill: none; marker-end: url(#tip-amber); opacity: 0.6; stroke-dasharray: 4 3; }
+    </style>
+    <marker id="tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#5be9f5"/>
+    </marker>
+    <marker id="tip-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#f5b85b"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="720" fill="url(#bg)"/>
+  <text x="40" y="48" class="title">Event Horizon · Module Map</text>
+  <text x="40" y="68" class="sub">README §7.1 · single source of truth · v0.1</text>
+
+  <!-- UI / state column -->
+  <rect class="group" x="40"  y="100" width="280" height="560"/>
+  <text x="56" y="124" class="group-label">ui · state</text>
+
+  <rect class="leaf" x="56" y="140" width="248" height="52"/>
+  <text x="68" y="160" class="leaf-label">ui/panels</text>
+  <text x="68" y="178" class="leaf-sub">right-panel groups A–I (T8)</text>
+
+  <rect class="leaf" x="56" y="202" width="248" height="52"/>
+  <text x="68" y="222" class="leaf-label">ui/primitives</text>
+  <text x="68" y="240" class="leaf-sub">slider · toggle · modal · accordion</text>
+
+  <rect class="leaf" x="56" y="264" width="248" height="52"/>
+  <text x="68" y="284" class="leaf-label">ui/hud</text>
+  <text x="68" y="302" class="leaf-sub">telemetry chips · timeline · play/pause</text>
+
+  <rect class="leaf" x="56" y="326" width="248" height="52"/>
+  <text x="68" y="346" class="leaf-label">ui/tour</text>
+  <text x="68" y="364" class="leaf-sub">7-step onboarding (T12)</text>
+
+  <rect class="leaf" x="56" y="388" width="248" height="52"/>
+  <text x="68" y="408" class="leaf-label">state</text>
+  <text x="68" y="426" class="leaf-sub">Sim · Render · Ui · Telemetry stores</text>
+
+  <rect class="leaf" x="56" y="450" width="248" height="52"/>
+  <text x="68" y="470" class="leaf-label">app</text>
+  <text x="68" y="488" class="leaf-sub">boot · config · entry</text>
+
+  <rect class="leaf" x="56" y="512" width="248" height="52"/>
+  <text x="68" y="532" class="leaf-label">audio</text>
+  <text x="68" y="550" class="leaf-sub">Tone.js graph · procedural voices</text>
+
+  <rect class="leaf" x="56" y="574" width="248" height="52"/>
+  <text x="68" y="594" class="leaf-label">content</text>
+  <text x="68" y="612" class="leaf-sub">equations · scenarios · i18n</text>
+
+  <!-- canvas column -->
+  <rect class="group" x="360" y="100" width="380" height="560"/>
+  <text x="376" y="124" class="group-label">canvas · render</text>
+
+  <rect class="leaf" x="376" y="140" width="348" height="52"/>
+  <text x="388" y="160" class="leaf-label">canvas/core</text>
+  <text x="388" y="178" class="leaf-sub">Renderer · Stage · Loop · Clock</text>
+
+  <rect class="leaf" x="376" y="202" width="348" height="52"/>
+  <text x="388" y="222" class="leaf-label">canvas/objects</text>
+  <text x="388" y="240" class="leaf-sub">BlackHole · AccretionDisk · Jet · Skybox · Probe · Particles</text>
+
+  <rect class="leaf" x="376" y="264" width="348" height="52"/>
+  <text x="388" y="284" class="leaf-label">canvas/shaders</text>
+  <text x="388" y="302" class="leaf-sub">lensing.frag · disk.frag · horizon.frag · bloom · tonemap</text>
+
+  <rect class="leaf" x="376" y="326" width="348" height="52"/>
+  <text x="388" y="346" class="leaf-label">canvas/postprocessing</text>
+  <text x="388" y="364" class="leaf-sub">EffectComposer chain · per-tier passes</text>
+
+  <rect class="leaf" x="376" y="388" width="348" height="52"/>
+  <text x="388" y="408" class="leaf-label">canvas/cameras</text>
+  <text x="388" y="426" class="leaf-sub">Cinematic · Orbit · FreeFly · Probe · Infall</text>
+
+  <rect class="leaf" x="376" y="450" width="348" height="52"/>
+  <text x="388" y="470" class="leaf-label">assets</text>
+  <text x="388" y="488" class="leaf-sub">self-authored textures · HDRIs · glTF</text>
+
+  <rect class="leaf" x="376" y="512" width="348" height="52"/>
+  <text x="388" y="532" class="leaf-label">sim</text>
+  <text x="388" y="550" class="leaf-sub">scenario state machine · 8 scripted scenes</text>
+
+  <rect class="leaf" x="376" y="574" width="348" height="52"/>
+  <text x="388" y="594" class="leaf-label">lib</text>
+  <text x="388" y="612" class="leaf-sub">math · easing · color · shared utilities</text>
+
+  <!-- physics column -->
+  <rect class="group" x="780" y="100" width="380" height="560"/>
+  <text x="796" y="124" class="group-label">physics · pure</text>
+
+  <rect class="leaf" x="796" y="140" width="348" height="52"/>
+  <text x="808" y="160" class="leaf-label">physics/metrics</text>
+  <text x="808" y="178" class="leaf-sub">Schwarzschild · Kerr · Reissner-Nordström · Kerr-Newman</text>
+
+  <rect class="leaf" x="796" y="202" width="348" height="52"/>
+  <text x="808" y="222" class="leaf-label">physics/integrators</text>
+  <text x="808" y="240" class="leaf-sub">RK4 geodesic stepper (CPU verification)</text>
+
+  <rect class="leaf" x="796" y="264" width="348" height="52"/>
+  <text x="808" y="284" class="leaf-label">physics/derived</text>
+  <text x="808" y="302" class="leaf-sub">r_s · ISCO · photon sphere · ergosphere</text>
+
+  <rect class="leaf" x="796" y="326" width="348" height="52"/>
+  <text x="808" y="346" class="leaf-label">physics/thermo</text>
+  <text x="808" y="364" class="leaf-sub">Hawking T · evaporation lifetime · entropy</text>
+
+  <rect class="leaf" x="796" y="388" width="348" height="52"/>
+  <text x="808" y="408" class="leaf-label">physics/units</text>
+  <text x="808" y="426" class="leaf-sub">branded Mass · Spin · Length · Charge</text>
+
+  <rect class="leaf" x="796" y="450" width="348" height="174"/>
+  <text x="808" y="470" class="leaf-label">contract</text>
+  <text x="808" y="492" class="leaf-sub">no Three.js imports · no globals</text>
+  <text x="808" y="510" class="leaf-sub">unit-tested vs. published references</text>
+  <text x="808" y="528" class="leaf-sub">cited inline against MTW · BPT · Page-Thorne · EHT · Hawking</text>
+  <text x="808" y="556" class="leaf-sub">honest: lensing is approximate, labeled as such</text>
+  <text x="808" y="574" class="leaf-sub">honest: Hawking radiation is visual, log timescale</text>
+
+  <!-- arrows: ui -> state -> canvas -->
+  <path class="arrow" d="M310 472 L376 222"/>
+  <path class="arrow" d="M310 414 L376 414"/>
+  <path class="arrow-soft" d="M310 538 C 360 538, 360 348, 376 348"/>
+
+  <!-- canvas -> physics (uniforms read derived quantities) -->
+  <path class="arrow" d="M724 222 L796 222"/>
+  <path class="arrow" d="M724 290 L796 290"/>
+
+  <!-- physics -> canvas (snapshot data flow) -->
+  <path class="arrow-soft" d="M796 414 L724 414"/>
+
+  <text x="40" y="700" class="leaf-sub">solid cyan = data flow · dashed amber = read-only snapshot · arrows point downstream</text>
+</svg>

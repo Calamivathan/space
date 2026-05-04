@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="description" content="Event Horizon — an interactive, scientifically-grounded 3D black hole observatory & simulator." />
+    <meta name="theme-color" content="#05060a" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>Event Horizon — Interactive Black Hole Observatory</title>
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="stage" aria-label="Black hole simulation viewport"></canvas>
+      <div data-boot="loading" role="status" aria-live="polite">
+        <div class="boot-ring" aria-hidden="true"></div>
+        <div class="boot-label">event horizon · booting</div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

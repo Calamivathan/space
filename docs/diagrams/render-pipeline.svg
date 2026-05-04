@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 540" font-family="Inter, system-ui, sans-serif">
+  <!--
+    Event Horizon render pipeline (README §7.2 + §7.4).
+    Hand-authored, T1 deliverable.
+  -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#05060a"/>
+      <stop offset="100%" stop-color="#0b0e16"/>
+    </linearGradient>
+    <style>
+      .title { fill: #e8ecf5; font-size: 22px; font-weight: 700; letter-spacing: 0.04em; }
+      .sub   { fill: #9ba3b7; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; }
+      .lane  { fill: #0b0e16; stroke: #2a3146; stroke-width: 1.2; rx: 10; }
+      .lane-label { fill: #5be9f5; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; }
+      .step  { fill: #141826; stroke: #2a3146; stroke-width: 1; rx: 6; }
+      .step-label { fill: #e8ecf5; font-size: 12px; font-weight: 500; }
+      .step-sub   { fill: #9ba3b7; font-size: 10px; }
+      .arr   { stroke: #5be9f5; stroke-width: 1.2; fill: none; marker-end: url(#tipx); }
+      .arr-soft { stroke: #f5b85b; stroke-width: 1; fill: none; stroke-dasharray: 4 3; marker-end: url(#tipy); }
+      .frame { fill: none; stroke: #f0d58a; stroke-width: 1; stroke-dasharray: 6 4; rx: 8; opacity: 0.55; }
+    </style>
+    <marker id="tipx" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#5be9f5"/>
+    </marker>
+    <marker id="tipy" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#f5b85b"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="540" fill="url(#bg)"/>
+  <text x="40" y="48" class="title">Event Horizon · Render Pipeline</text>
+  <text x="40" y="68" class="sub">README §7.2 · single rAF driver · three ticks</text>
+
+  <!-- physics lane -->
+  <rect class="lane" x="40" y="100" width="1120" height="100"/>
+  <text x="56" y="124" class="lane-label">physics tick · fixed 120 Hz · accumulator</text>
+  <rect class="step" x="60" y="138" width="170" height="48"/>
+  <text x="72" y="158" class="step-label">snapshot SimStore</text>
+  <text x="72" y="174" class="step-sub">freezes inputs at frame start</text>
+  <rect class="step" x="246" y="138" width="200" height="48"/>
+  <text x="258" y="158" class="step-label">integrate scenario step</text>
+  <text x="258" y="174" class="step-sub">RK4 / state-machine (T7)</text>
+  <rect class="step" x="462" y="138" width="200" height="48"/>
+  <text x="474" y="158" class="step-label">derive ISCO · r_s · T_H</text>
+  <text x="474" y="174" class="step-sub">from active metric (T3)</text>
+  <rect class="step" x="678" y="138" width="200" height="48"/>
+  <text x="690" y="158" class="step-label">write uniform targets</text>
+  <text x="690" y="174" class="step-sub">debounced / lerped (T9)</text>
+  <rect class="step" x="894" y="138" width="240" height="48"/>
+  <text x="906" y="158" class="step-label">push telemetry (throttled 30 Hz)</text>
+  <text x="906" y="174" class="step-sub">to TelemetryStore for HUD</text>
+
+  <!-- render lane -->
+  <rect class="lane" x="40" y="220" width="1120" height="120"/>
+  <text x="56" y="244" class="lane-label">render tick · vsync · ≤ 16.6 ms target</text>
+  <rect class="step" x="60" y="260" width="160" height="64"/>
+  <text x="72" y="282" class="step-label">resize / DPR clamp</text>
+  <text x="72" y="298" class="step-sub">tier-aware resolutionScale</text>
+
+  <rect class="step" x="236" y="260" width="160" height="64"/>
+  <text x="248" y="282" class="step-label">scene update</text>
+  <text x="248" y="298" class="step-sub">camera rig · object dt update</text>
+
+  <rect class="step" x="412" y="260" width="180" height="64"/>
+  <text x="424" y="282" class="step-label">main render pass</text>
+  <text x="424" y="298" class="step-sub">skybox · BH · disk · jet · particles</text>
+
+  <rect class="step" x="608" y="260" width="160" height="64"/>
+  <text x="620" y="282" class="step-label">bloom chain</text>
+  <text x="620" y="298" class="step-sub">2–6 passes (tier)</text>
+
+  <rect class="step" x="784" y="260" width="160" height="64"/>
+  <text x="796" y="282" class="step-label">tonemap (AGX)</text>
+  <text x="796" y="298" class="step-sub">+ vignette · grain</text>
+
+  <rect class="step" x="960" y="260" width="180" height="64"/>
+  <text x="972" y="282" class="step-label">present to canvas</text>
+  <text x="972" y="298" class="step-sub">srgb output, no flicker</text>
+
+  <!-- ui lane -->
+  <rect class="lane" x="40" y="360" width="1120" height="100"/>
+  <text x="56" y="384" class="lane-label">ui tick · throttled 30 Hz · React only</text>
+  <rect class="step" x="60" y="400" width="220" height="48"/>
+  <text x="72" y="420" class="step-label">read TelemetryStore</text>
+  <text x="72" y="436" class="step-sub">selectors · no canvas writes</text>
+
+  <rect class="step" x="296" y="400" width="220" height="48"/>
+  <text x="308" y="420" class="step-label">render HUD chips</text>
+  <text x="308" y="436" class="step-sub">r_s · T_H · lifetime · dilation</text>
+
+  <rect class="step" x="532" y="400" width="220" height="48"/>
+  <text x="544" y="420" class="step-label">control panel diff</text>
+  <text x="544" y="436" class="step-sub">user input → SimStore actions</text>
+
+  <rect class="step" x="768" y="400" width="220" height="48"/>
+  <text x="780" y="420" class="step-label">debounce + lerp</text>
+  <text x="780" y="436" class="step-sub">240 ms cubic for continuous</text>
+
+  <rect class="step" x="1004" y="400" width="136" height="48"/>
+  <text x="1016" y="420" class="step-label">→ snapshot</text>
+  <text x="1016" y="436" class="step-sub">next physics frame</text>
+
+  <!-- arrows physics chain -->
+  <path class="arr" d="M230 162 L246 162"/>
+  <path class="arr" d="M446 162 L462 162"/>
+  <path class="arr" d="M662 162 L678 162"/>
+  <path class="arr" d="M878 162 L894 162"/>
+
+  <!-- arrows render chain -->
+  <path class="arr" d="M220 292 L236 292"/>
+  <path class="arr" d="M396 292 L412 292"/>
+  <path class="arr" d="M592 292 L608 292"/>
+  <path class="arr" d="M768 292 L784 292"/>
+  <path class="arr" d="M944 292 L960 292"/>
+
+  <!-- arrows ui chain -->
+  <path class="arr" d="M280 424 L296 424"/>
+  <path class="arr" d="M516 424 L532 424"/>
+  <path class="arr" d="M752 424 L768 424"/>
+  <path class="arr" d="M988 424 L1004 424"/>
+
+  <!-- physics → render uniform feed -->
+  <path class="arr-soft" d="M778 186 L492 260"/>
+  <!-- ui → physics feedback -->
+  <path class="arr-soft" d="M1072 400 C 1140 280, 1140 200, 1010 186"/>
+  <!-- physics → ui telemetry -->
+  <path class="arr-soft" d="M1014 186 C 1140 280, 1140 360, 170 400"/>
+
+  <!-- frame budget annotation -->
+  <rect class="frame" x="40" y="478" width="1120" height="34"/>
+  <text x="56" y="500" class="sub">budget: 16.6 ms total · 6 ms BH stack · 4 ms post · 4 ms scene · auto-downgrade after 5 over-budget frames</text>
+</svg>

@@ -1,0 +1,111 @@
+:root {
+  --void-0: #05060a;
+  --void-1: #0b0e16;
+  --void-2: #141826;
+  --frost-0: #e8ecf5;
+  --frost-1: #9ba3b7;
+  --signal-cyan: #5be9f5;
+  --signal-amber: #f5b85b;
+  --signal-crimson: #f25b6e;
+  --relic-gold: #f0d58a;
+  color-scheme: dark;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: var(--void-0);
+  color: var(--frost-0);
+  font-family: "Inter Variable", Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-feature-settings: "ss01", "cv11";
+  overflow: hidden;
+}
+
+#app {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  grid-template: 1fr / 1fr;
+}
+
+canvas#stage {
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+}
+
+[data-boot] {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(ellipse at center, #0b0e16 0%, #05060a 70%);
+  color: var(--frost-1);
+  font-family: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, Menlo, monospace;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: opacity 480ms cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 10;
+}
+
+[data-boot="ready"] {
+  opacity: 0;
+}
+
+.boot-ring {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  border: 1px solid rgba(91, 233, 245, 0.35);
+  box-shadow: 0 0 60px rgba(91, 233, 245, 0.08) inset;
+  position: relative;
+}
+
+.boot-ring::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  border-top: 1px solid var(--signal-cyan);
+  border-right: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  border-left: 1px solid transparent;
+  animation: boot-spin 1.6s linear infinite;
+}
+
+.boot-label {
+  position: absolute;
+  bottom: 18%;
+  width: 100%;
+  text-align: center;
+  font-size: 10px;
+  color: var(--frost-1);
+}
+
+@keyframes boot-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.dev-console {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  width: 280px;
+  z-index: 100;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-boot] {
+    transition: none;
+  }
+  .boot-ring::after {
+    animation: none;
+  }
+}

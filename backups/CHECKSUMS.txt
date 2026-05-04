@@ -1,0 +1,3 @@
+# SHA-256 checksums for backup bundles produced by docs/CONTRIBUTING.md §7.
+# One line per `git bundle create backups/v0.<n>.bundle --all`.
+# Format: <sha256>  <relative path>
